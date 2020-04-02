@@ -1,0 +1,7 @@
+{
+  "name": "scrummaster",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
