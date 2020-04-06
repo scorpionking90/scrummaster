@@ -11,7 +11,7 @@ import {
   Form
 } from 'antd';
 
-class Home extends React.Component {
+class ScrumPoints extends React.Component {
   onChange = () => {
 
   }
@@ -23,24 +23,18 @@ class Home extends React.Component {
 
 
     return (
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Home page</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <Carousel afterChange={this.onChange}>
-            <div>
-              <h3>{this.props.userList.length > 0 ? this.props.userList[0].userId : 1}</h3>
-            </div>
-            <div>
-              <h3>{this.props.userList.length > 0 ? this.props.userList[1].userId : 2}</h3>
-            </div>
-
-          </Carousel>
-        </IonContent>
-      </IonPage>
+     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Scrum points</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+       <h1>
+           Scrum points page
+       </h1>
+      </IonContent>
+    </IonPage>
     );
   }
 }
@@ -58,4 +52,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(ScrumPoints)

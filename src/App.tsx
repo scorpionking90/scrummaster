@@ -4,7 +4,9 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Home from './pages/Home';
-
+import ScrumPoints from './pages/ScrumPoints'
+import { IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon } from '@ionic/react';
+import { people,home,person, time } from 'ionicons/icons';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -27,11 +29,28 @@ import './theme/variables.css';
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
+     <IonTabs >
       <IonRouterOutlet>
         <Route path="/home" component={Home} exact={true} />
+        <Route path="/scrumpoints" component={ScrumPoints} exact={true} />
         <Route exact path="/" render={() => <Redirect to="/home" />} />
       </IonRouterOutlet>
-    </IonReactRouter>
+      <IonTabBar slot="bottom">
+        <IonTabButton tab="schedule" href="/home">
+          <IonIcon icon={home} />
+          <IonLabel>Home</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="scrumpoints" href="/scrumpoints">
+          <IonIcon icon={time} />
+          <IonLabel>Scrum Points</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="profile" href="/">
+          <IonIcon icon={person} />
+          <IonLabel>Profile</IonLabel>
+        </IonTabButton>
+      </IonTabBar>
+      </IonTabs>
+      </IonReactRouter>
   </IonApp>
 );
 
