@@ -30,16 +30,9 @@ class Home extends React.Component {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <Carousel afterChange={this.onChange}>
-            <div>
-              <h3>{this.props.userList.length > 0 ? this.props.userList[0].userId : 1}</h3>
-            </div>
-            <div>
-              <h3>{this.props.userList.length > 0 ? this.props.userList[1].userId : 2}</h3>
-            </div>
 
-          </Carousel>
         </IonContent>
+
       </IonPage>
     );
   }
