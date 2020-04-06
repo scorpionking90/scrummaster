@@ -4,11 +4,8 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Home from './pages/Home';
-<<<<<<< HEAD
-import ScrumPoints from './pages/ScrumPoints'
-import { IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon } from '@ionic/react';
-import { people,home,person, time } from 'ionicons/icons';
-=======
+
+import {home,person, time } from 'ionicons/icons';
 import {
   IonIcon,
   IonLabel,
@@ -19,7 +16,7 @@ import {
 } from '@ionic/react';
 import { apps, flash, send } from 'ionicons/icons';
 
->>>>>>> 3d6945858348b1f504f8c460e4ca6e0de3226f09
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
