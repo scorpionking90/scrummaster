@@ -1,26 +1,18 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonIcon, IonLabel, IonButton } from '@ionic/react';
 import React from 'react';
-import { Carousel } from 'antd';
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import store from '../store/store.js'
 import * as getUserAcions from '../actions/getUserActions';
-// import MyTypes from 'MyTypes';
+import IndivisualGraph from '../pages/IndivisualGraph.jsx';
 import './Home.css';
-import {
-  Form
-} from 'antd';
 
 class Home extends React.Component {
-  onChange = () => {
-
-  }
   componentDidMount() {
     this.props.getUserAcions.fetchActiveOrganization();
   }
   render() {
-    console.log(this.props);
-
+    // console.log(this.props.match.params.username);
 
     return (
       <IonPage>
@@ -30,6 +22,16 @@ class Home extends React.Component {
           </IonToolbar>
         </IonHeader>
         <IonContent>
+          <IonCard>
+            <IonCardHeader>
+              {/* <IonCardSubtitle>Card Subtitle</IonCardSubtitle> */}
+              <IonCardTitle>My Graph</IonCardTitle>
+            </IonCardHeader>
+
+            <IonCardContent>
+              <IndivisualGraph username={this.props.match.params.username} />
+            </IonCardContent>
+          </IonCard>
 
         </IonContent>
 
