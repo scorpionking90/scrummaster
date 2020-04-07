@@ -4,7 +4,7 @@ import { Carousel } from 'antd';
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import store from '../store/store.js'
-import * as getUserAcions from '../actions/getUserActions';
+import * as getUserActions from '../actions/getUserActions';
 // import MyTypes from 'MyTypes';
 import './Home.css';
 import {
@@ -16,7 +16,7 @@ class Home extends React.Component {
 
   }
   componentDidMount() {
-    this.props.getUserAcions.fetchActiveOrganization();
+    this.props.getUserActions.fetchLoggedInUser("KK035231");
   }
   render() {
     console.log(this.props);
@@ -42,12 +42,12 @@ class Home extends React.Component {
 // }
 function mapStateToProps(state) {
   return {
-    userList: state.userList,
+    loggedInUser: state.loggedInUser,
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
-    getUserAcions: bindActionCreators(getUserAcions, dispatch),
+    getUserActions: bindActionCreators(getUserActions, dispatch),
   }
 }
 

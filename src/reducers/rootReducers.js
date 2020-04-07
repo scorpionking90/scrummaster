@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux'
-import userList from './userListReducer'
+import loggedInUser from './userListReducer'
+import scrumPoints from './ScrumPointsReducers'
+import team from './ScrumPointsReducers'
+
 
 const rootReducer = combineReducers({
-  userList,
+  loggedInUser,
+  scrumPoints,
+  team,
  
 })
 

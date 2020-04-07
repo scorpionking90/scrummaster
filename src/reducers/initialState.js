@@ -1,6 +1,6 @@
 export default {
-  currentUser: '',
-  currentUserId: '',
-  userList:[],
+  loggedInUser:'',
+  scrumPoints:[],
+  team:[]
   
 }

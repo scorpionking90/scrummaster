@@ -1,3 +1,6 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+.ant-list{
+  padding: 9px !important;
+}

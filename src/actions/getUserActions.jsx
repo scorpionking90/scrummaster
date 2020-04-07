@@ -6,15 +6,19 @@ function url() {
   return 'https://kiranscrumapp.herokuapp.com/associates'
 }
 
-export function receiveActiveOrganization(data) {
-  return { type: types.RECEIVE_USER, userList: data }
+export function receiveLoggedInUser(data) {
+  return { type: types.RECEIVE_USER, loggedInUser: data }
 }
 
-export function fetchActiveOrganization() {
+export function fetchLoggedInUser(associateId) {
   return dispatch => {
     return axios
-      .get(url())
+      .get(url(),{
+        params:{
+            associate_id:associateId
+        }
+      })
       .then(response => response.data)
-      .then(data => dispatch(receiveActiveOrganization(data)))
+      .then(data => dispatch(receiveLoggedInUser(data)))
   }
 }

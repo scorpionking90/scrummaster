@@ -4,7 +4,8 @@ import { Carousel } from 'antd';
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import store from '../store/store.js'
-import * as getUserAcions from '../actions/getUserActions';
+import * as ScrumPointActions from '../actions/ScrumPointsActions'
+import { List, Typography } from 'antd';
 // import MyTypes from 'MyTypes';
 import './Home.css';
 import {
@@ -12,17 +13,28 @@ import {
 } from 'antd';
 
 class ScrumPoints extends React.Component {
+  constructor(props){
+    super(props);
+      this.state={
+         loggedInUserTeam:0,
+      }
+    }
   onChange = () => {
 
   }
   componentDidMount() {
-    this.props.getUserAcions.fetchActiveOrganization();
+    var loggedInTeam=store.getState().loggedInUser[0].team.id;
+    this.setState({
+      loggedInUserTeam: loggedInTeam
+  }, () => {
+    this.props.ScrumPointActions.getLogInUserTeam(this.state.loggedInUserTeam);
+    this.props.ScrumPointActions.getScrumPoints();
+  });
+    
   }
   render() {
     console.log(this.props);
-
-
-    return (
+   return (
      <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -30,9 +42,19 @@ class ScrumPoints extends React.Component {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-       <h1>
-           Scrum points page
-       </h1>
+      <List
+      size="large">
+      {this.props.scrumPoints.map(scrumPoints=>
+        (
+          <List.Item key={scrumPoints.id}>
+          <Typography.Text>{scrumPoints.associate.name}</Typography.Text>
+          <Typography.Text>{scrumPoints.point}</Typography.Text>
+        </List.Item>
+        )
+      )
+      }
+    </List>
+    
       </IonContent>
     </IonPage>
     );
@@ -43,12 +65,14 @@ class ScrumPoints extends React.Component {
 // }
 function mapStateToProps(state) {
   return {
-    userList: state.userList,
+    scrumPoints: state.scrumPoints,
+    team:state.team
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
-    getUserAcions: bindActionCreators(getUserAcions, dispatch),
+    ScrumPointActions: bindActionCreators(ScrumPointActions, dispatch),
+
   }
 }
 
