@@ -10,7 +10,7 @@ import './Home.css';
 
 class Home extends React.Component {
   componentDidMount() {
-    this.props.getUserActions.fetchLoggedInUser("KK035231");
+    this.props.getUserActions.fetchLoggedInUser(this.props.match.params.username);
   }
   render() {
     // console.log(this.props.match.params.username);

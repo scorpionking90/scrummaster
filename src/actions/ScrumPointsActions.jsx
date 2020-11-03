@@ -3,41 +3,23 @@ import axios from 'axios';
 import { bindActionCreators, Dispatch } from 'redux'
 
 const apiBaseUrl='https://kiranscrumapp.herokuapp.com/'
-function url() {
-  return  apiBaseUrl+'scrumpoints'
+function url(id) {
+  return  apiBaseUrl+'scrumpoints?associate=' + id + '&_sort=point:ASC'
 }
-function teamUrl() {
-  return apiBaseUrl+'associates'
-}
+
 
 export function receiveScrumPoints(data) {
    
   return { type: types.RECEIVE_SCRUM_POINTS, scrumPoints: data }
 }
-export function receiveLogInUserTeam(data) {
-  console.log(data);
-return { type: types.RECEIVE_TEAM, team: data }
-}
 
-export function getScrumPoints() {
+
+export function getScrumPoints(id) {
   return dispatch => {
     return axios
-      .get(url())
+      .get(url(id))
       .then(response => response.data)
       .then(data => dispatch(receiveScrumPoints(data)))
   }
 }
 
-export function getLogInUserTeam(teamId) {
-  return dispatch => {
-    return axios
-      .get(teamUrl(),
-      {
-        params:{
-          team:teamId
-      }
-      })
-      .then(response => response.data)
-      .then(data => dispatch(receiveLogInUserTeam(data)))
-  }
-}

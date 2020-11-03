@@ -1,7 +1,7 @@
 import initialState from './initialState'
 import { FETCH_SCRUM_POINTS, RECEIVE_SCRUM_POINTS } from '../actions/actionTypes'
 
-export default function userList(state = initialState.scrumPoints, action) {
+export default function scrumPoints(state = initialState.scrumPoints, action) {
   let newState
   switch (action.type) {
     case FETCH_SCRUM_POINTS:

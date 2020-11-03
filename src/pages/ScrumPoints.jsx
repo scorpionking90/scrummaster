@@ -5,7 +5,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import store from '../store/store.js'
 import * as ScrumPointActions from '../actions/ScrumPointsActions'
-import { List, Typography } from 'antd';
+import * as TeamsActions from '../actions/TeamsActions'
+import { List, Typography,Empty } from 'antd';
+import moment from 'moment'
 // import MyTypes from 'MyTypes';
 import './Home.css';
 import {
@@ -17,23 +19,46 @@ class ScrumPoints extends React.Component {
     super(props);
       this.state={
          loggedInUserTeam:0,
+         teamScrumPoints:''
       }
     }
-  onChange = () => {
-
-  }
-  componentDidMount() {
+   componentDidMount() {
     var loggedInTeam=store.getState().loggedInUser[0].team.id;
     this.setState({
       loggedInUserTeam: loggedInTeam
-  }, () => {
-    this.props.ScrumPointActions.getLogInUserTeam(this.state.loggedInUserTeam);
-    this.props.ScrumPointActions.getScrumPoints();
+  }, async() => {
+    await this.props.TeamsActions.getLogInUserTeam(this.state.loggedInUserTeam);
+   this.getScrumPoints(this.props.team);
+
   });
     
   }
+  getScrumPoints=(teams)=>{
+    var scrumPoint=[];
+    teams.forEach(async (oneTeam) => {
+      var eachAssociate = {
+        points: null,
+        name: null,
+        id: null,
+    };
+    eachAssociate.name =oneTeam.name;
+    eachAssociate.id = oneTeam.id;
+      await this.props.ScrumPointActions.getScrumPoints(oneTeam.id);
+      var scrumPoints=this.props.scrumPoints;
+      var memberPoints = 0;
+         for (var eachPoint = 0; eachPoint < scrumPoints.length; eachPoint++) {
+                 var today = scrumPoints[eachPoint].created_at;
+                 if (moment().format("MM") === moment(today).format("MM"))
+                 memberPoints += parseInt(scrumPoints[eachPoint].point);
+         }
+         eachAssociate.points = memberPoints;
+         scrumPoint.push(eachAssociate);
+         this.setState({teamScrumPoints:scrumPoint})
+      })
+
+  }
   render() {
-    console.log(this.props);
+    // console.log(this.state.teamScrumPoints);
    return (
      <IonPage>
       <IonHeader>
@@ -42,18 +67,24 @@ class ScrumPoints extends React.Component {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+      {(this.state.teamScrumPoints != '' && this.state.teamScrumPoints.length !=0)
+      ? 
       <List
       size="large">
-      {this.props.scrumPoints.map(scrumPoints=>
-        (
-          <List.Item key={scrumPoints.id}>
-          <Typography.Text>{scrumPoints.associate.name}</Typography.Text>
-          <Typography.Text>{scrumPoints.point}</Typography.Text>
-        </List.Item>
+      {this.state.teamScrumPoints.map(scrumPoints=>{
+        return(
+           <List.Item key={scrumPoints.id}>
+            <Typography.Text>{scrumPoints.name}</Typography.Text>
+            <Typography.Text>{scrumPoints.points}</Typography.Text>
+          </List.Item>
+          
         )
+      }
+        
       )
       }
-    </List>
+    </List>:<Empty/>
+    }
     
       </IonContent>
     </IonPage>
@@ -72,6 +103,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     ScrumPointActions: bindActionCreators(ScrumPointActions, dispatch),
+    TeamsActions:bindActionCreators(TeamsActions, dispatch)
 
   }
 }
