@@ -26,7 +26,7 @@ class TeamScrumGraph extends React.Component {
         //     return res;
         // }, Object.create(null));
         // console.log(teamScrumPointsCombined)
-        // console.log("teamScrumPoints",teamScrumPoints);
+        console.log("teamScrumPoints",teamScrumPoints);
 
         teamScrumPoints.forEach((i) => {
             teamScrumPointsCombined[i.associate.associate_id] = teamScrumPointsCombined[i.associate.associate_id] || { associate_name: i.associate.name, point: 0 };
@@ -54,13 +54,13 @@ class TeamScrumGraph extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        scrumPoints: state.scrumPoints, 
+       // scrumPoints: state.scrumPoints, 
         teamScrumPoints: state.teamScrumPoints,
     }
 }
 function mapDispatchToProps(dispatch) {
     return {
-        ScrumPointActions: bindActionCreators(ScrumPointActions, dispatch),
+        //ScrumPointActions: bindActionCreators(ScrumPointActions, dispatch),
         teamsActions: bindActionCreators(teamsActions, dispatch),
     }
 }

@@ -3,7 +3,7 @@ import loggedInUser from './userListReducer'
 import scrumPoints from './ScrumPointsReducers'
 import team from './TeamsReducer'
 import userScrumPoints from './userScrumPointReducer'
-import teamScrumPoints from './TeamsReducer'
+import teamScrumPoints from './TeamScrumPointsReducer'
 
 
 const rootReducer = combineReducers({
