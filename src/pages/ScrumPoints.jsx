@@ -23,7 +23,13 @@ class ScrumPoints extends React.Component {
       }
     }
    componentDidMount() {
-    var loggedInTeam=store.getState().loggedInUser[0].team.id;
+     console.log(store.getState());
+     var loggedInTeam;
+     if(!store.getState().loggedInUserFlag){
+       loggedInTeam=store.getState().loggedInUser[0].team.id;
+     }else{
+      loggedInTeam=store.getState().loggedInUser[0].teams.id;
+     }
     this.setState({
       loggedInUserTeam: loggedInTeam
   }, async() => {
