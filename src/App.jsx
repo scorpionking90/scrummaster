@@ -4,6 +4,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Home from './pages/Home';
+import Login from './Login/Login'
 import ScrumPoints from './pages/ScrumPoints'
 import { home, person, time } from 'ionicons/icons';
 import {
@@ -35,15 +36,44 @@ import '@ionic/react/css/display.css';
 
 
 class App extends React.Component {
+
+    constructor(props){
+      super(props);
+      this.state={
+        loggedInUser:true
+      }
+    }
+    isUserLogIn=()=>{
+      console.log("clling")
+    }
   render() {
-    return (
+    if(!this.state.loggedInUser) {
+     return(
+       
+        <IonReactRouter>
+          <Route path="/login" render={props => <Login {...props} />} exact={true} />
+          <Route
+            path="/"
+            render={() => <Redirect to="/login" />}
+            exact={true}
+          />
+          <Route
+            path="*"
+            render={() => <Redirect to="/login" />}
+            exact={true}
+          />
+        </IonReactRouter>
+      
+    )
+    }else{
+      return(
       <IonApp>
         <IonReactRouter>
           <IonTabs >
             <IonRouterOutlet>
               <Route path="/home/:username" component={Home} exact={true} />
               <Route path="/scrumpoints" component={ScrumPoints} exact={true} />
-              <Route exact path="/" render={() => <Redirect to="/home/:username" />} />
+              <Route exact path="/login" render={() => <Redirect to="/home/:username" />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="schedule" href="/home">
@@ -64,6 +94,7 @@ class App extends React.Component {
       </IonApp>
 
     )
+     }
   }
 }
 
