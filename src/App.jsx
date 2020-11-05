@@ -51,7 +51,7 @@ class App extends React.Component {
      return(
        
         <IonReactRouter>
-          <Route path="/login" render={props => <Login {...props} />} exact={true} />
+          <Route path="/login" render={props => <Login {...props} isUserLogIn={this.isUserLogIn}/>} exact={true} />
           <Route
             path="/"
             render={() => <Redirect to="/login" />}
@@ -76,7 +76,7 @@ class App extends React.Component {
               <Route exact path="/login" render={() => <Redirect to="/home/:username" />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
-              <IonTabButton tab="schedule" href="/home">
+              <IonTabButton tab="schedule" href="/home/:username">
                 <IonIcon icon={home} />
                 <IonLabel>Home</IonLabel>
               </IonTabButton>

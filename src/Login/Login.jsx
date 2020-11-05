@@ -9,9 +9,6 @@ import * as getUserActions from '../actions/getUserActions';
 import IndivisualGraph from '../pages/IndivisualGraph.jsx';
 
 class Login extends React.Component {
-  componentDidMount() {
-   // this.props.getUserActions.fetchLoggedInUser(this.props.match.params.username);
-  }
   render() {
     return (
       <IonPage>
@@ -23,7 +20,7 @@ class Login extends React.Component {
 <IonRow>
   <IonCol>
   
-    <IonButton expand="block" onClick={()=>this.props.isUserLogIn}>
+    <IonButton expand="block" onClick={this.props.isUserLogIn}>
       Login
     </IonButton>
   </IonCol>
