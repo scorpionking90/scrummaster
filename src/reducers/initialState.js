@@ -1,6 +1,8 @@
 export default {
   loggedInUser:'',
   scrumPoints:[],
-  team:[]
+  team:[],
+  userScrumPoints:[],
+  teamScrumPoints:[],
   
 }

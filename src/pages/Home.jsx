@@ -6,6 +6,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import store from '../store/store.js'
 import * as getUserActions from '../actions/getUserActions';
 import IndivisualGraph from '../pages/IndivisualGraph.jsx';
+import TeamScrumGraph from '../pages/TeamScrumGraph.jsx';
 import './Home.css';
 
 class Home extends React.Component {
@@ -14,6 +15,16 @@ class Home extends React.Component {
   }
   render() {
     // console.log(this.props.match.params.username);
+    var teamName = "";
+    var userId=0;
+    if(store.getState().loggedInUser[0] !== undefined){
+      teamName = store.getState().loggedInUser[0].team.name;
+      // userId = this.props.loggedInUser[0].id;
+    }
+    if(this.props.loggedInUser[0] !== undefined){
+      userId = this.props.loggedInUser[0].id;
+    }
+    if (userId === 0 || teamName === "") return null;
 
     return (
       <IonPage>
@@ -25,12 +36,21 @@ class Home extends React.Component {
         <IonContent>
           <IonCard>
             <IonCardHeader>
+              <IonCardTitle>{teamName}'s Graph</IonCardTitle>
+            </IonCardHeader>
+
+            <IonCardContent>
+              <TeamScrumGraph  />
+            </IonCardContent>
+          </IonCard>
+          <IonCard>
+            <IonCardHeader>
               {/* <IonCardSubtitle>Card Subtitle</IonCardSubtitle> */}
               <IonCardTitle>My Graph</IonCardTitle>
             </IonCardHeader>
 
             <IonCardContent>
-              <IndivisualGraph username={this.props.match.params.username} />
+              <IndivisualGraph userId={userId} />
             </IonCardContent>
           </IonCard>
 
