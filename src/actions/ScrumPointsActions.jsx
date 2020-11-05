@@ -11,6 +11,16 @@ function getUserPointsUrl(associateId) {
   return apiBaseUrl+'scrumpoints'
 }
 
+function MasterPinurl(id) {
+  return  apiBaseUrl+'Teams/'+id
+}
+
+export function receivePinResponseCode(data) {
+   
+  return { type: types.RECEIVE_PIN_RESPONSE_CODE, pinResponse: data }
+}
+
+
 export function receiveScrumPoints(data) {
    
   return { type: types.RECEIVE_SCRUM_POINTS, scrumPoints: data }
@@ -43,5 +53,17 @@ export function getUserScrumPoints(associateId, scrumPointsFrom, scrumPointsTo){
       })
       .then(response => response.data)
       .then(data => dispatch(receiveUserScrumPoints(data)))
+  }
+}
+export function putMasterPin(pin,id) {
+  console.log("pin,id",pin);
+  return dispatch => {
+    return axios
+      .put(MasterPinurl(id),
+      {
+        pin:pin
+      })
+      .then(response => response.data)
+      .then(data => dispatch(receivePinResponseCode(data)))
   }
 }

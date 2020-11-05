@@ -1,5 +1,5 @@
 import initialState from './initialState'
-import { FETCH_SCRUM_POINTS, RECEIVE_SCRUM_POINTS } from '../actions/actionTypes'
+import { FETCH_SCRUM_POINTS, RECEIVE_SCRUM_POINTS,RECEIVE_PIN_RESPONSE_CODE } from '../actions/actionTypes'
 
 export default function scrumPoints(state = initialState.scrumPoints, action) {
   let newState
@@ -9,6 +9,8 @@ export default function scrumPoints(state = initialState.scrumPoints, action) {
     case RECEIVE_SCRUM_POINTS:
       newState = action.scrumPoints
       return newState
+    case RECEIVE_PIN_RESPONSE_CODE:
+      return action
     default:
       return state
   }
