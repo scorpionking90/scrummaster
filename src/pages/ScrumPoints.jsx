@@ -77,7 +77,7 @@ class ScrumPoints extends React.Component {
       ? 
       <List
       size="large">
-      {this.state.teamScrumPoints.map(scrumPoints=>{
+      {this.state.teamScrumPoints.sort((a, b) => a.points < b.points ? 1 : -1).map(scrumPoints=>{
         return(
            <List.Item key={scrumPoints.id}>
             <Typography.Text>{scrumPoints.name}</Typography.Text>
