@@ -10,8 +10,17 @@ function teamPointsUrl() {
   return  apiBaseUrl+'scrumpoints'
 }
 
+function teamPinUrl() {
+  return  apiBaseUrl+'teams'
+}
+
 export function receiveLogInUserTeam(data) {
   return { type: types.RECEIVE_TEAM, team: data }
+}
+
+export function receiveTeamPin(data) {
+  console.log(data[0].pin);
+  return { type: types.RECEIVE_TEAM_PIN, teampin: data[0].pin }
 }
 
 export function receiveTeamScrumPoints(data) {
@@ -39,5 +48,19 @@ export function getTeamScrumPoints() {
       .get(teamPointsUrl())
       .then(response => response.data)
       .then(data => dispatch(receiveTeamScrumPoints(data)))
+  }
+}
+
+export function getTeamPin(teamName) {
+  return dispatch => {
+    return axios
+      .get(teamPinUrl(),
+      {
+        params:{
+          name:teamName
+      }
+      })
+      .then(response => response.data)
+      .then(data => dispatch(receiveTeamPin(data)))
   }
 }

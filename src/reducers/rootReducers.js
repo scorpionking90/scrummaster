@@ -5,6 +5,7 @@ import team from './TeamsReducer'
 import userScrumPoints from './userScrumPointReducer'
 import teamScrumPoints from './TeamScrumPointsReducer'
 import loggedInUserFlag from './UserFlagReducer'
+import teampin from './TeamPinReducers'
 
 const rootReducer = combineReducers({
   loggedInUser,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   team,
   userScrumPoints,
   teamScrumPoints,
-  loggedInUserFlag
+  loggedInUserFlag,
+  teampin,
 })
 
 export default rootReducer

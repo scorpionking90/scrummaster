@@ -5,5 +5,6 @@ export default {
   userScrumPoints:[],
   teamScrumPoints:[],
   pinResponse:'',
-  loggedInUserFlag:''
+  loggedInUserFlag:'',
+  teampin:'',
 }

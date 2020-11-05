@@ -5,9 +5,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import store from '../store/store.js'
 import * as getUserActions from '../actions/getUserActions';
+import * as getTeamActions from '../actions/TeamsActions';
 import IndivisualGraph from '../pages/IndivisualGraph.jsx';
 import TeamScrumGraph from '../pages/TeamScrumGraph.jsx';
+import * as getScrumPointActions from '../actions/ScrumPointsActions';
 import './Home.css';
+import { type } from 'os';
 import MasterOption from './MasterOptions';
 
 class Home extends React.Component {
@@ -27,6 +30,7 @@ class Home extends React.Component {
     }
     async componentDidMount() {
          await this.props.getUserActions.fetchLoggedInUser(this.props.match.params.username);
+         this.props.getTeamActions.getTeamPin("EAD");
          if(this.props.loggedInUser.length === 0){
            this.setState({isMaster:true,isAssociate:false})
            await this.props.getUserActions.fetchLoggedInMaster(this.props.match.params.username)
@@ -58,8 +62,8 @@ class Home extends React.Component {
       MasterOptions =<MasterOption username={this.props.match.params.username} newpin ={{pin : this.pin.bind(this)}}/>}
     else 
     {
-      MasterOptions = <div><IonButton slot = "secondary" onClick={() => setShowAlert(true)} expand="block">Scrum Pin</IonButton>
-        <ion-alert-controller></ion-alert-controller></div>
+      MasterOptions = <div><IonButton slot = "secondary" onClick={() => setShowAlert((true,this.props))} expand="block">Scrum Pin</IonButton>
+      <ion-alert-controller></ion-alert-controller></div>
     }
       if (this.state.isMaster) { ShowMasterPin = <div style={{border: "1px solid black", backgroundColor:"lightgray",textAlignLast:"center"}}>
       <h6 >PIN : {this.state.pin}</h6>
@@ -96,15 +100,20 @@ class Home extends React.Component {
 function mapStateToProps(state) {
   return {
     loggedInUser: state.loggedInUser,
-    loggedInUserFlag:state.loggedInUserFlag
+    loggedInUserFlag:state.loggedInUserFlag,
+    teampin: state.teampin,
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
     getUserActions: bindActionCreators(getUserActions, dispatch),
+    loggedInUserFlag:state.loggedInUserFlag,
+    getTeamActions: bindActionCreators(getTeamActions, dispatch),
+    getScrumPointActions: bindActionCreators(getScrumPointActions,dispatch),
+  
   }
 }
-function setShowAlert() {
+function setShowAlert(event,args) {
   const alert = document.createElement('ion-alert');
   alert.cssClass = 'my-custom-class';
   alert.header = 'SCRUM PIN';
@@ -126,6 +135,10 @@ function setShowAlert() {
     }, {
       text: 'Ok',
       handler: (alertData) => {
+        if(alertData.Pin===args.teampin.toString()){
+          args.getScrumPointActions.postScrumPoints(args.loggedInUser[0].id);
+        }else{
+        }
         console.log('Confirm Ok ' + alertData.Pin)
       }
     }

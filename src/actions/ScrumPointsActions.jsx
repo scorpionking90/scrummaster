@@ -67,3 +67,17 @@ export function putMasterPin(pin,id) {
       .then(data => dispatch(receivePinResponseCode(data)))
   }
 }
+
+export function postScrumPoints(userId) {
+  axios.post(getUserPointsUrl(userId), {
+  "point": 2,
+  "associate": {
+  "id": userId
+  }
+  })
+  .then((response) => {
+  console.log(response);
+  }, (error) => {
+  console.log(error);
+  });
+  }
