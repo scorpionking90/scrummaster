@@ -32,14 +32,12 @@ class GeneratePin extends React.Component {
       };
     
       Ok = e => {
-        console.log(e);
         this.setState({
             pinvisible: false,
         });
       };
     
       Cancel = e => {
-        console.log(e);
         this.setState({
             pinvisible: false,
         });
@@ -57,7 +55,6 @@ class GeneratePin extends React.Component {
       }
     confirm = (e) => {
       this.componentDidMount();
-        console.log("e",e);
         if(e.pin === -1)
         {
             var newPin = Math.floor(Math.random()*90000) + 10000;
@@ -87,7 +84,6 @@ class GeneratePin extends React.Component {
         let master = await response.json()
         this.setState({ master: master})
         for (const [id, name] of this.state.master.entries()) {
-          console.log("logedin user",this.props.username.username);
           if(name.associateId === this.props.username.username)
           {
             this.setState({ isMaster: true });
@@ -154,8 +150,7 @@ class GeneratePin extends React.Component {
 
 
   function cancel(e) {
-    console.log(e);
-    message.error('Click on No');
+    //message.error('Click on No');
   }
 
 function mapStateToProps(state) {

@@ -21,7 +21,6 @@ class MasterOptions extends React.Component {
 this.setState({pin:newPin})
     }
     render() {
-      console.log("this.state.pin",this.state.pin)
       this.props.newpin.pin(this.state.pin);
       const menu1 = (
         <Menu>
@@ -50,8 +49,5 @@ this.setState({pin:newPin})
        </div>
        );
     }
-}
-function handleMenuClick(e) {
-  console.log('click', e);
 }
   export default MasterOptions
