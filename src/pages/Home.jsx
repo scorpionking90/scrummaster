@@ -31,6 +31,8 @@ class Home extends React.Component {
         <IonHeader>
           <IonToolbar>
             <IonTitle>Home page</IonTitle>
+            <IonButton slot = "secondary" onClick={() => setShowAlert(true)} expand="block">Scrum Pin</IonButton>
+            <ion-alert-controller></ion-alert-controller>
           </IonToolbar>
         </IonHeader>
         <IonContent>
@@ -73,5 +75,36 @@ function mapDispatchToProps(dispatch) {
     getUserActions: bindActionCreators(getUserActions, dispatch),
   }
 }
+function setShowAlert() {
+  const alert = document.createElement('ion-alert');
+  alert.cssClass = 'my-custom-class';
+  alert.header = 'SCRUM PIN';
+  alert.inputs = [
+    {
+      name: 'Pin',
+      type: 'text',
+      placeholder: 'Please enter the Scrum PIN'
+    },
+  ];
+  alert.buttons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: () => {
+        console.log('Confirm Cancel')
+      }
+    }, {
+      text: 'Ok',
+      handler: (alertData) => {
+        console.log('Confirm Ok ' + alertData.Pin)
+      }
+    }
+  ];
+
+  document.body.appendChild(alert);
+  return alert.present();
+}
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
